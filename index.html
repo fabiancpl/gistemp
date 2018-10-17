@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<title>Visual Analytics - Midterm Bonus</title>
+
+		<meta charset="utf-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Stylesheets -->
+		<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="./css/styles.css">
+
+		<!-- Scripts -->
+		<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="./node_modules/d3/dist/d3.min.js"></script>
+
+		<script src="./js/main.js"></script>
+
+		</head>
+		<body>
+  	
+			<div class="container">
+				<div class="row">
+						<div class="col-md-12">
+						<br />
+						<h1 style="text-align: center;">¿Qué podemos decir del calentamiento global en relación con los fenómenos de El Niño y La Niña?</h1>
+						<p style="text-align: center;">
+							<b>Por:</b> Fabian Camilo Peña Lozano, Universidad de los Andes, Colombia
+							<br />
+							<b>Fecha:</b> Octubre, 2018
+						</p>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-6">
+						<select id="attrselection">
+							<option value="global" selected>Global Temperature</option>
+							<option value="hemispheres">Northern / Southern Temperature</option>
+						</select>
+						<svg id="timeseries" width="1100" height="500"></svg>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<p style="text-align: center;">En Colombia, existen IPSs (Instituciones Prestadoras de Salud) de carácter público, privado y mixto. La función principal principal de estas instituciones es la prestación de los servicios médicos de consulta, hospitalarios y clínicos y de cuidados intensivos a las EPSs (Entidades Promotoras de Salud).</p>
+						<p style="text-align: center;">Los datos usados en esta interfaz fueron obtenidos mediante la plataforma <a href="https://www.datos.gov.co/Salud-y-Protecci-n-Social/Relaci-n-de-IPS-p-blicas-y-privadas-seg-n-el-nivel/s2ru-bqt6" target="_blank">datos.gov.co</a>, son de tipo <b>Table</b>, en donde cada <b>Ítem</b> representa una IPS y se disponen de <b>Attributes</b> de tipo <b>Categorical</b> como el nombre, la naturaleza, grupo de la capacidad y descripción de la capacidad. Adicionalmente, se dispone de otros de tipo <b>Ordered</b> como el nivel de atención y la capacidad instalada, que son <b>Ordinal</b> y <b>Quantitative Sequential</b>, respectivamente.</p>
+						<p style="text-align: center;">La figura de la derecha muestra la cantidad de IPSs discriminadas por su naturaleza. Se puede ver claramente como la cantidad de instituciones de carácter privado sobrepasan en más de 1.000 a las públicas. Las instituciones mixtas son casi inexistentes. <b>Compare -> Features</b>. Se utiliza una <b>Mark</b> de tipo <b>Line</b> en un <b>Channel</b> de tipo <b>Position on common scale</b> para evidenciar la cantidad de IPSs por cada una de las naturalezas. La naturaleza se apoya en un <b>Channel</b> de tipo <b>Color Hue</b>.</p>
+					</div>
+					<div class="col-md-6">
+						<svg id="ipsByNature" width="570" height="500"></svg>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-6">
+						<svg id="ipsByLevelByNature" width="570" height="500"></svg>
+					</div>
+					<div class="col-md-6">
+						<p style="text-align: center;">El problema con las IPSs de naturaleza privada y mixta es que no se encuentran clasificadas por nivel de atención, lo que dificulta su comparación directa con las IPSs públicas. Para que todas las IPSs puedan ser comparadas, se realiza una actividad previa de tipo <b>Dreive and Anotate -> Features</b>, la cual consiste en entrenar un modelo de clasificación el cuál permite, a parir de las capacidades instaladas de cada IPS, establecer su nivel de atención. Los detalles de la impelementación del clasificador se encuentran disponibles <a href="https://github.com/fabiancpl/visual-analytics/blob/master/interactive-visualization/data-preparation/data_preparation.ipynb" target="_blank">aquí</a>.</p>
+						<p style="text-align: center;">La figura de la izquierda permite comparar todas las IPSs pero adicionalemente discriminando por nivel de atención. Las <b>Actions</b> y <b>Targets</b>, así como las <b>Marks</b> y <b>Channels</b>, son las mimas de la figura anterior pero permitiendo complementar la información suministrada.</p>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-6">
+						<p style="text-align: center;">La última gráfica permite llegar a nivel de comparación mayor mientras que habilita al usuario un combobox para que seleccione la métrica (capacidad de la IPSs) para realizar la comparación <b>Manipulate / Change</b>. Mediante la interacción, el usuario puede evidenciar que tipos de capadidades y en que magnitudes se encuentran en las IPSs caracterizadas por su nivel de atención. Por ejemplo, el usuario puede evidenciar que la capacidad de "Camas Farmacodependencia" se encuentran disponibles en mayor medida en las IPSs privadas de nivel 2.</p>
+					</div>
+					<div class="col-md-6">
+						<select id="attrselection">
+							<option value="Camas Adultos" selected>Camas Adultos</option>
+							<option value="Camas Cuidado Agudo Mental">Camas Cuidado Agudo Mental</option>
+							<option value="Camas Cuidado Intensivo Adulto">Camas Cuidado Intensivo Adulto</option>
+							<option value="Camas Cuidado Intensivo Neonatal">Camas Cuidado Intensivo Neonatal</option>
+							<option value="Camas Cuidado Intensivo Pediátrico">Camas Cuidado Intensivo Pediátrico</option>
+							<option value="Camas Cuidado Intermedio Adultos">Camas Cuidado Intermedio Adultos</option>
+							<option value="Camas Cuidado Intermedio Mental">Camas Cuidado Intermedio Mental</option>
+							<option value="Camas Cuidado Intermedio Neonatal">Camas Cuidado Intermedio Neonatal</option>
+							<option value="Camas Cuidado Intermedio Pediátrico">Camas Cuidado Intermedio Pediátrico</option>
+							<option value="Camas Farmacodependencia">Camas Farmacodependencia</option>
+							<option value="Camas Institución Paciente Crónico">Camas Institución Paciente Crónico</option>
+							<option value="Camas Obstetricia">Camas Obstetricia</option>
+							<option value="Camas Pediátrica">Camas Pediátrica</option>
+							<option value="Camas Psiquiatría">Camas Psiquiatría</option>
+							<option value="Camas Salud Mental">Camas Salud Mental</option>
+							<option value="Camas Transplante de Progenitores Hematopoyeticos">Camas Transplante de Progenitores Hematopoyeticos</option>
+							<option value="Camas Unidad de Quemados Adulto">Camas Unidad de Quemados Adulto</option>
+							<option value="Camas Unidad de Quemados Pediátrico">Camas Unidad de Quemados Pediátrico</option>
+							<option value="Salas Partos">Salas Partos</option>
+							<option value="Salas Procedimientos">Salas Procedimientos</option>
+							<option value="Salasa Quirófano">Salasa Quirófano</option>
+						</select>
+						<svg id="ipsByLevelByNatureByDesc" width="570" height="500"></svg>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-12">
+						<p style="text-align: center;"><a href="https://github.com/fabiancpl/visual-analytics/tree/master/interactive-visualization" target="_blank">GitHub repository</a></p>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>
